@@ -11,40 +11,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
-
-
-    private Button button1;
-    private Button button2;
-    private Button button3;
-    private Button button4;
-    private Button button5;
-    private Button button6;
-    private Button button7;
-    private Button button8;
-    private Button button9;
-    private Button buttonComma;
-    private Button buttonPlus;
-    private Button buttonMinus;
-    private Button buttonMult;
-    private Button buttonDivision;
-    private Button buttonClr;
-    private Button buttonEnter;
-
-    private Button button0;
-
-
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        button0 = (Button)findViewById(R.id.btn0);
-        button0.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // todo
-                Log.i("Teste1", "Funcionou");
-            }
-        });
+
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -53,5 +25,91 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // lembrar de escrever o codigo apos setcontentview
+        // *para achar a atividade atual e não dar nullpointerexcp
+        inicializaBotoes();
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.btn0) {
+            Log.i("teste", "0");
+        } else if (id == R.id.btn1) {
+            Log.i("teste", "1");
+        } else if (id == R.id.btn2) {
+            Log.i("teste", "2");
+        } else if (id == R.id.btn3) {
+            Log.i("teste", "3");
+        } else if (id == R.id.btn4) {
+            Log.i("teste", "4");
+        } else if (id == R.id.btn5) {
+            Log.i("teste", "5");
+        } else if (id == R.id.btn6) {
+            Log.i("teste", "6");
+        } else if (id == R.id.btn7) {
+            Log.i("teste", "7");
+        } else if (id == R.id.btn8) {
+            Log.i("teste", "8");
+        } else if (id == R.id.btn9) {
+            Log.i("teste", "9");
+        } else if (id == R.id.btnComma) {
+            Log.i("teste", ",");
+        } else if (id == R.id.btnEnter) {
+            Log.i("teste", "enter()");
+        } else if (id == R.id.btnClear) {
+            Log.i("teste", "Clear");
+        } else if (id == R.id.btnDelete) {
+            Log.i("teste", "Del");
+        } else if (id == R.id.btnMult) {
+            Log.i("teste", "x");
+        } else if (id == R.id.btnDiv) {
+            Log.i("teste", "/");
+        } else if (id == R.id.btnSoma) {
+            Log.i("teste", "+");
+        } else if (id == R.id.btnSub) {
+            Log.i("teste", "-");
+        }
+
+    }
+    private void inicializaBotoes(){
+
+        Button zeroBtn = (Button) findViewById(R.id.btn0);
+        Button umBtn = (Button) findViewById(R.id.btn1);
+        Button doisBtn = (Button) findViewById(R.id.btn2);
+        Button tresBtn = (Button) findViewById(R.id.btn3);
+        Button quatroBtn = (Button) findViewById(R.id.btn4);
+        Button cincoBtn = (Button) findViewById(R.id.btn5);
+        Button seisBtn = (Button) findViewById(R.id.btn6);
+        Button seteBtn = (Button) findViewById(R.id.btn7);
+        Button oitoBtn = (Button) findViewById(R.id.btn8);
+        Button noveBtn = (Button) findViewById(R.id.btn9);
+        Button delBtn = (Button) findViewById(R.id.btnDelete);
+        Button clrBtn = (Button) findViewById(R.id.btnClear);
+        Button commaBtn = (Button) findViewById(R.id.btnComma);
+        Button enterBtn = (Button) findViewById(R.id.btnEnter);
+        Button multBtn = (Button) findViewById(R.id.btnMult);
+        Button subBtn = (Button) findViewById(R.id.btnSub);
+        Button somaBtn = (Button) findViewById(R.id.btnSoma);
+        Button divBtn = (Button) findViewById(R.id.btnDiv);
+
+        zeroBtn.setOnClickListener(this);
+        umBtn.setOnClickListener(this);
+        doisBtn.setOnClickListener(this);
+        tresBtn.setOnClickListener(this);
+        quatroBtn.setOnClickListener(this);
+        cincoBtn.setOnClickListener(this);
+        seisBtn.setOnClickListener(this);
+        seteBtn.setOnClickListener(this);
+        oitoBtn.setOnClickListener(this);
+        noveBtn.setOnClickListener(this);
+        delBtn.setOnClickListener(this);
+        clrBtn.setOnClickListener(this);
+        commaBtn.setOnClickListener(this);
+        enterBtn.setOnClickListener(this);
+        multBtn.setOnClickListener(this);
+        subBtn.setOnClickListener(this);
+        somaBtn.setOnClickListener(this);
+        divBtn.setOnClickListener(this);
     }
 }

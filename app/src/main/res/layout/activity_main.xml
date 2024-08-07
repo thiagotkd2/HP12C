@@ -26,7 +26,6 @@
 
     <Button
         android:id="@+id/btn0"
-        style="@style/Cor_Botao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
@@ -70,12 +69,12 @@
         app:iconPadding="0dp"
         app:iconSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/btnComma"
-        app:layout_constraintEnd_toStartOf="@+id/btnSum"
+        app:layout_constraintEnd_toStartOf="@+id/btnSoma"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnComma" />
 
     <Button
-        android:id="@+id/btnSum"
+        android:id="@+id/btnSoma"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
@@ -135,10 +134,10 @@
         android:minHeight="50dp"
         android:text="-"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSum"
+        app:layout_constraintBottom_toTopOf="@+id/btnSoma"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btnSum" />
+        app:layout_constraintStart_toStartOf="@+id/btnSoma" />
 
     <Button
         android:id="@+id/btn4"
