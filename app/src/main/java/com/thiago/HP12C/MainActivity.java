@@ -1,9 +1,11 @@
 package com.thiago.HP12C;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,11 +14,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    EditText visor;
 
+    Calculadora calc = new Calculadora();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -26,48 +28,107 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return insets;
         });
         // lembrar de escrever o codigo apos setcontentview
-        // *para achar a atividade atual e não dar nullpointerexcp
+        // *para achar a atividade atual e não dar
+
+        // calculadora = new ViewModelProvider(this).get(Calculadora.class);
+        //
         inicializaBotoes();
+        visor = (EditText)findViewById(R.id.visor);
+
+
     }
 
     @Override
     public void onClick(View view) {
+        if(calc.getModo()==1){limpaVisor();}// 1 = Modo Exibindo
+        double numero;
+        if(calc.getModo()==2){
+            limpaVisor();
+            calc = new Calculadora();
+        }
+        if(calc.getModo()==0){visor.setTextColor(Color.parseColor("#112233"));}// 0 = Modo Editando
         int id = view.getId();
+
         if (id == R.id.btn0) {
+
+            numero = converteStringDouble(atualizaVisor("0"));
+            calc.setNumero(numero);
             Log.i("teste", "0");
         } else if (id == R.id.btn1) {
+            numero = converteStringDouble(atualizaVisor("1"));
+            calc.setNumero(numero);
             Log.i("teste", "1");
         } else if (id == R.id.btn2) {
+            numero = converteStringDouble(atualizaVisor("2"));
+            calc.setNumero(numero);
             Log.i("teste", "2");
         } else if (id == R.id.btn3) {
+            numero = converteStringDouble(atualizaVisor("3"));
+            calc.setNumero(numero);
             Log.i("teste", "3");
         } else if (id == R.id.btn4) {
+            numero = converteStringDouble(atualizaVisor("4"));
+            calc.setNumero(numero);
             Log.i("teste", "4");
         } else if (id == R.id.btn5) {
+            numero = converteStringDouble(atualizaVisor("5"));
+            calc.setNumero(numero);
             Log.i("teste", "5");
         } else if (id == R.id.btn6) {
+            numero = converteStringDouble(atualizaVisor("6"));
+            calc.setNumero(numero);
             Log.i("teste", "6");
         } else if (id == R.id.btn7) {
+            numero = converteStringDouble(atualizaVisor("7"));
+            calc.setNumero(numero);
             Log.i("teste", "7");
         } else if (id == R.id.btn8) {
+            numero = converteStringDouble(atualizaVisor("8"));
+            calc.setNumero(numero);
             Log.i("teste", "8");
         } else if (id == R.id.btn9) {
-            Log.i("teste", "9");
+            numero = converteStringDouble(atualizaVisor("9"));
+            calc.setNumero(numero);
+            Log.i("teste", numero+"");
         } else if (id == R.id.btnComma) {
+            numero = converteStringDouble(atualizaVisor(","));
+
             Log.i("teste", ",");
         } else if (id == R.id.btnEnter) {
+            calc.enter();
+            visor.setTextColor(Color.parseColor("#33FF88"));
             Log.i("teste", "enter()");
         } else if (id == R.id.btnClear) {
+            limpaVisor();
+            calc = new Calculadora();
             Log.i("teste", "Clear");
         } else if (id == R.id.btnDelete) {
+            numero = converteStringDouble(deletaEntrada());
+            calc.setNumero(numero);
             Log.i("teste", "Del");
         } else if (id == R.id.btnMult) {
+            calc.multiplicacao();
+            limpaVisor();
+            atualizaVisor(String.valueOf(calc.getNumero()));
+            // visor.setTextColor(Color.parseColor("#33EE88"));
             Log.i("teste", "x");
         } else if (id == R.id.btnDiv) {
+            calc.divisao();
+            limpaVisor();
+            atualizaVisor(String.valueOf(calc.getNumero()));
+            if(calc.getModo()==2){
+                visor.setText("ERRO");
+            }
             Log.i("teste", "/");
         } else if (id == R.id.btnSoma) {
+            calc.soma();
+            limpaVisor();
+            atualizaVisor(String.valueOf(calc.getNumero()));
             Log.i("teste", "+");
         } else if (id == R.id.btnSub) {
+            calc.subtracao();
+            limpaVisor();
+            atualizaVisor(String.valueOf(calc.getNumero()));
             Log.i("teste", "-");
         }
 
@@ -112,4 +173,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         somaBtn.setOnClickListener(this);
         divBtn.setOnClickListener(this);
     }
+
+    private String atualizaVisor(String i){
+        EditText editText = (EditText)findViewById(R.id.visor);
+        String textoAtual =editText.getText().toString(); // pega o valor do visor
+        String novoValor;
+        // previne a adição de multiplos zeros à esquerda
+        if(!i.equals(",")){
+            novoValor = textoAtual.equals("0")? i:textoAtual + i;
+            editText.setText(novoValor);
+            return novoValor;
+        }
+
+        novoValor = textoAtual.contains(",") ? textoAtual:textoAtual.concat(",");
+        editText.setText(novoValor);
+        Log.i("teste", novoValor);
+        return novoValor;
+    }
+
+    private String deletaEntrada(){
+        String texto = visor.getText().toString();
+        String novoTexto = texto.length()<2? "0":texto.substring(0, texto.length()-1);
+        visor.setText(novoTexto);
+        return novoTexto;
+    }
+
+    private void limpaVisor(){
+        visor.setText("0");
+    }
+
+    private Double converteStringDouble(String s){
+
+        return Double.parseDouble(s.replace(",","."));
+    }
+
 }
