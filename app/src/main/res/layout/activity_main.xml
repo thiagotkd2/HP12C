@@ -8,6 +8,96 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/btnPmt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#A9B61E"
+        android:backgroundTintMode="multiply"
+        android:minWidth="60dp"
+        android:minHeight="50dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
+        android:text="PMT"
+        android:textSize="16sp"
+        app:iconTintMode="multiply"
+        app:layout_constraintBottom_toTopOf="@+id/btn8"
+        app:layout_constraintStart_toStartOf="@+id/btn8" />
+
+    <Button
+        android:id="@+id/btnPv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#A9B61E"
+        android:backgroundTintMode="multiply"
+        android:minWidth="60dp"
+        android:minHeight="50dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
+        android:text="PV"
+        android:textSize="16sp"
+        app:iconTintMode="multiply"
+        app:layout_constraintBottom_toTopOf="@+id/btnDiv"
+        app:layout_constraintStart_toStartOf="@+id/btnDiv" />
+
+    <Button
+        android:id="@+id/btnN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#A9B61E"
+        android:backgroundTintMode="multiply"
+        android:minWidth="60dp"
+        android:minHeight="50dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
+        android:text="n"
+        android:textSize="16sp"
+        app:iconTintMode="multiply"
+        app:layout_constraintBottom_toTopOf="@+id/btnClear"
+        app:layout_constraintStart_toStartOf="@+id/btnClear" />
+
+    <Button
+        android:id="@+id/btnFv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#A9B61E"
+        android:backgroundTintMode="multiply"
+        android:minWidth="60dp"
+        android:minHeight="50dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
+        android:text="FV"
+        android:textSize="16sp"
+        app:iconTintMode="multiply"
+        app:layout_constraintBottom_toTopOf="@+id/btn9"
+        app:layout_constraintStart_toStartOf="@+id/btn9" />
+
+    <Button
+        android:id="@+id/btnI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#A9B61E"
+        android:backgroundTintMode="multiply"
+        android:minWidth="60dp"
+        android:minHeight="50dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
+        android:text="i"
+        android:textSize="16sp"
+        app:iconTintMode="multiply"
+        app:layout_constraintBottom_toTopOf="@+id/btn7"
+        app:layout_constraintStart_toStartOf="@+id/btn7" />
+
+    <Button
         android:id="@+id/btnEnter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -255,15 +345,26 @@
         android:id="@+id/visor"
         android:layout_width="372dp"
         android:layout_height="70dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="124dp"
         android:ems="10"
         android:inputType="text"
         android:text="0"
         android:textSize="@dimen/tamFonteVisor"
-        app:layout_constraintBottom_toTopOf="@+id/btn8"
+        app:layout_constraintBottom_toTopOf="@+id/btnPmt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/historico"
+        android:layout_width="338dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

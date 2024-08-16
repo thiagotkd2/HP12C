@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     EditText visor;
+    TextView historicoView;
 
     Calculadora calc = new Calculadora();
     @Override
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //
         inicializaBotoes();
         visor = (EditText)findViewById(R.id.visor);
+        historicoView = (TextView) findViewById(R.id.historico);
 
 
     }
@@ -46,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             limpaVisor();
             calc = new Calculadora();
         }
-        if(calc.getModo()==0){visor.setTextColor(Color.parseColor("#112233"));}// 0 = Modo Editando
         int id = view.getId();
 
         if (id == R.id.btn0) {
@@ -110,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             calc.multiplicacao();
             limpaVisor();
             atualizaVisor(String.valueOf(calc.getNumero()));
+            imprimeHistorico(calc.getHistorico());
             // visor.setTextColor(Color.parseColor("#33EE88"));
             Log.i("teste", "x");
         } else if (id == R.id.btnDiv) {
@@ -118,20 +121,76 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             atualizaVisor(String.valueOf(calc.getNumero()));
             if(calc.getModo()==2){
                 visor.setText("ERRO");
+            }else{
+                imprimeHistorico(calc.getHistorico());
             }
             Log.i("teste", "/");
         } else if (id == R.id.btnSoma) {
             calc.soma();
             limpaVisor();
             atualizaVisor(String.valueOf(calc.getNumero()));
+            imprimeHistorico(calc.getHistorico());
             Log.i("teste", "+");
         } else if (id == R.id.btnSub) {
             calc.subtracao();
             limpaVisor();
             atualizaVisor(String.valueOf(calc.getNumero()));
+            imprimeHistorico(calc.getHistorico());
             Log.i("teste", "-");
-        }
+        } else if (id == R.id.btnPv) {
+            Log.i("Teste2", calc.getModo()+"");
+            if(calc.getModo()==1) {
+                imprimeHistorico(calc.gerarHistoricoFinanceiro());
+                calc.valorPresente();
+                // se der erro nesse meio tempo, print ERRO
+                atualizaVisor(String.valueOf(calc.getModo()==2 ? "ERRO":calc.getNumero()));
 
+
+            }else{calc.setPV(converteStringDouble(visor.getText().toString()));}
+        }else if (id == R.id.btnFv) {
+            if(calc.getModo()==1) {
+                imprimeHistorico(calc.gerarHistoricoFinanceiro());
+                calc.valorFuturo();
+                // se der erro nesse meio tempo, print ERRO
+                atualizaVisor(String.valueOf(calc.getModo()==2 ? "ERRO":calc.getNumero()));
+
+
+            }else{calc.setFV(converteStringDouble(visor.getText().toString()));}
+            Log.i("teste", "-");
+        }else if (id == R.id.btnPmt) {
+            if(calc.getModo()==1) {
+                imprimeHistorico(calc.gerarHistoricoFinanceiro());
+                calc.prestacoes();
+                // se der erro nesse meio tempo, print ERRO
+                atualizaVisor(String.valueOf(calc.getModo()==2 ? "ERRO":calc.getNumero()));
+
+
+            }else{calc.setPMT(converteStringDouble(visor.getText().toString()));}
+
+
+            Log.i("teste", "-");
+        }else if (id == R.id.btnN) {
+            if(calc.getModo()==1) {
+                imprimeHistorico(calc.gerarHistoricoFinanceiro());
+                calc.calculoPeriodo();
+                // se der erro nesse meio tempo, print ERRO
+                atualizaVisor(String.valueOf(calc.getModo()==2 ? "ERRO":calc.getNumero()));
+
+
+            }else{calc.setPeriodo(converteStringDouble(visor.getText().toString()));}
+        }else if (id == R.id.btnI) {
+            if(calc.getModo()==1) {
+                imprimeHistorico(calc.gerarHistoricoFinanceiro());
+                calc.calculoTaxa();
+                // se der erro nesse meio tempo, print ERRO
+                atualizaVisor(String.valueOf(calc.getModo()==2 ? "ERRO":calc.getNumero()));
+
+
+            }else{calc.setTaxa(converteStringDouble(visor.getText().toString())/100.00);}
+
+        }
+        if(calc.getModo()==0){visor.setTextColor(Color.parseColor("#112233"));}// 0 = Modo Editando
+        if(calc.getModo()==1){visor.setTextColor(Color.parseColor("#00FFAA"));}// 1 = Modo Exibindo
     }
     private void inicializaBotoes(){
 
@@ -153,6 +212,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button subBtn = (Button) findViewById(R.id.btnSub);
         Button somaBtn = (Button) findViewById(R.id.btnSoma);
         Button divBtn = (Button) findViewById(R.id.btnDiv);
+        Button pvBtn = (Button) findViewById(R.id.btnPv);
+        Button pmtBtn = (Button) findViewById(R.id.btnPmt);
+        Button fvBtn = (Button) findViewById(R.id.btnFv);
+        Button iBtn = (Button) findViewById(R.id.btnI);
+        Button nBtn = (Button) findViewById(R.id.btnN);
 
         zeroBtn.setOnClickListener(this);
         umBtn.setOnClickListener(this);
@@ -172,6 +236,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         subBtn.setOnClickListener(this);
         somaBtn.setOnClickListener(this);
         divBtn.setOnClickListener(this);
+        pvBtn.setOnClickListener(this);
+        pmtBtn.setOnClickListener(this);
+        fvBtn.setOnClickListener(this);
+        iBtn.setOnClickListener(this);
+        nBtn.setOnClickListener(this);
     }
 
     private String atualizaVisor(String i){
@@ -206,5 +275,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return Double.parseDouble(s.replace(",","."));
     }
+
+    private void imprimeHistorico(String historico){
+        historicoView.setText(historico);
+    }
+
 
 }
